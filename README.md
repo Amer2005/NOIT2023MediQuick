@@ -1,2 +1,8 @@
-# NOIT2023MediQuick
-My project for NOIT 2023 - MediQuick.
+
+# НОИТ 2023
+# MediQuick
+
+Проект за НОИТ 2023
+
+
+
