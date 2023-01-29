@@ -1,4 +1,5 @@
 ﻿using MediQuick.Data;
+using MediQuick.Data.Contracts;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 

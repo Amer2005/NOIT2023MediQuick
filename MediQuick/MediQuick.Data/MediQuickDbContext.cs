@@ -1,4 +1,5 @@
-﻿using MediQuick.Data.Mapping;
+﻿using MediQuick.Data.Contracts;
+using MediQuick.Data.Mapping;
 using MediQuick.Data.Models;
 using MediQuick.Data.Models.TransitionalModels;
 using Microsoft.EntityFrameworkCore;
@@ -8,7 +9,7 @@ using System.Text;
 
 namespace MediQuick.Data
 {
-    public class MediQuickDbContext : DbContext
+    public class MediQuickDbContext : DbContext, IMediQuickDbContext
     {
 
         public MediQuickDbContext(DbContextOptions<MediQuickDbContext> options) : base(options)

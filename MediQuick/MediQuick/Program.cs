@@ -3,6 +3,10 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.SqlServer;
 using Microsoft.EntityFrameworkCore.Design;
 using MediQuick.Data;
+using MediQuick.Data.Contracts;
+using MediQuick.Data.Repositories;
+using MediQuick.Services.Contracts;
+using MediQuick.Services;
 
 namespace MediQuick
 {
@@ -17,6 +21,19 @@ namespace MediQuick
 
             var connectionString = builder.Configuration.GetConnectionString("MediQuickConnectionString");
             builder.Services.AddDbContext<MediQuickDbContext>(x => x.UseSqlServer(connectionString));
+            builder.Services.AddScoped<IMediQuickDbContext, MediQuickDbContext>();
+            builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
+
+            builder.Services.AddScoped<IAmbulanceRepository, AmbulanceRepository>();
+            builder.Services.AddScoped<ICardiogramRepository, CardiogramRepository>();
+            builder.Services.AddScoped<IDeviceRepository, DeviceRepository>();
+            builder.Services.AddScoped<IHospitalRepository, HospitalRepository>();
+            builder.Services.AddScoped<ILocationRepository, LocationRepository>();
+            builder.Services.AddScoped<IPatientRepository, PatientRepository>();
+            builder.Services.AddScoped<IRoleRepository, RoleRepository>();
+            builder.Services.AddScoped<IUserRepository, UserRepository>();
+
+            builder.Services.AddScoped<IUserService, UserService>();
 
             var app = builder.Build();
 

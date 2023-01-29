@@ -5,7 +5,9 @@ VisualStudioVersion = 17.2.32630.192
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MediQuick.Data", "MediQuick.Data\MediQuick.Data.csproj", "{021FE50E-16BE-4BC5-844D-E33D3A075F68}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MediQuick", "MediQuick\MediQuick.csproj", "{1AB5A5E3-4D24-4462-AFFB-A6C9035586B6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MediQuick", "MediQuick\MediQuick.csproj", "{1AB5A5E3-4D24-4462-AFFB-A6C9035586B6}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MediQuick.Services", "MediQuick.Services\MediQuick.Services.csproj", "{1DA3FD04-C17E-48CA-ACD7-50130EDB7F5C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +23,10 @@ Global
 		{1AB5A5E3-4D24-4462-AFFB-A6C9035586B6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1AB5A5E3-4D24-4462-AFFB-A6C9035586B6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1AB5A5E3-4D24-4462-AFFB-A6C9035586B6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1DA3FD04-C17E-48CA-ACD7-50130EDB7F5C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1DA3FD04-C17E-48CA-ACD7-50130EDB7F5C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1DA3FD04-C17E-48CA-ACD7-50130EDB7F5C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1DA3FD04-C17E-48CA-ACD7-50130EDB7F5C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
