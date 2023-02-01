@@ -15,7 +15,7 @@ namespace MediQuick.Services
             this.userRepository = userRepository;
         }
 
-        public bool LoginUser(string username, string password)
+        public bool LoginUser(string? username, string? password)
         {
             if(string.IsNullOrEmpty(username))
             {
@@ -39,7 +39,7 @@ namespace MediQuick.Services
             return true;
         }
 
-        public User GetUserByUsernameAndPassword(string username, string password)
+        public User? GetUserByUsernameAndPassword(string? username, string? password)
         {
             if (string.IsNullOrEmpty(username))
             {
