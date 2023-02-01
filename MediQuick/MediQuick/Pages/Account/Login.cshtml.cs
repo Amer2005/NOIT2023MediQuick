@@ -1,3 +1,4 @@
+using MediQuick.Pages.AuthorisationPages;
 using MediQuick.Services.Contracts;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
@@ -9,10 +10,10 @@ namespace MediQuick.Pages.Account
         private IUserService userService;
 
         [BindProperty]
-        public string Username { get; set; }
+        public string? Username { get; set; }
 
         [BindProperty]
-        public string Password { get; set; }
+        public string? Password { get; set; }
 
         public bool IsValid { get; set; }
 
@@ -23,6 +24,7 @@ namespace MediQuick.Pages.Account
 
         public void OnGet()
         {
+
         }
 
         public IActionResult OnPost()

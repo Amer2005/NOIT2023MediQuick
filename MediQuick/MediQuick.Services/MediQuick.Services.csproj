@@ -6,4 +6,8 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\MediQuick.Data\MediQuick.Data.csproj" />
+  </ItemGroup>
+
 </Project>

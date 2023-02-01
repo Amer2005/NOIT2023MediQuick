@@ -17,6 +17,11 @@ namespace MediQuick.Data.Repositories
             this.dbContext = dbContext;
         }
 
+        public User GetByUsernameAndPassword(string username, string password)
+        {
+            return dbContext.Users.FirstOrDefault(x => x.Name == username && x.Password == password);
+        }
+
         public User GetUserById(int id)
         {
             return dbContext.Users.FirstOrDefault(x => x.Id == id);
