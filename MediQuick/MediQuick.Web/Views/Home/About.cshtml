@@ -1,6 +1,6 @@
 ﻿@{
     ViewData["Title"] = "About";
-    Model.Authorised = true;
+    Model.AllowedRoles.Add("hospitalAdmin");
 }
 
 <div class="aboutus-section">
@@ -11,7 +11,6 @@
                         <h2 class="aboutus-title">About Us</h2>
                         <p class="aboutus-text">MediQuick is a innovative project created by Amer Pandzharov for the NOIT 2023 competition. The goal of MediQuick is to revolutionize the way ambulances transfer patient information to hospitals. With the use of cutting-edge technology, MediQuick streamlines the transfer process, ensuring that hospitals receive all necessary information in a quick and efficient manner.</p>
                         <p class="aboutus-text"></p>
-                        <a class="aboutus-more" href="#">read more</a>
                     </div>
                 </div>
                 <div class="col-md-5 col-sm-6 col-xs-12">

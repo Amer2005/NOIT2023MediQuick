@@ -16,5 +16,10 @@ namespace MediQuick.Data.Repositories
         {
             this.dbContext = dbContext;
         }
+
+        public List<Hospital> GetAllHospitals()
+        {
+            return dbContext.Hospitals.ToList();
+        }
     }
 }

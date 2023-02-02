@@ -1,10 +1,12 @@
-﻿@model MediQuick.Web.Models.BaseModel
+﻿@using MediQuick.Data.Enums
+@model MediQuick.Web.Models.BaseModel
 
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <script type="text/javascript">
-        @if((Model != null && Model.Authorised && Model.User == null) || Model == null)
+
+        @if(!MediQuick.Web.Controllers.BaseController.IsAuthorised(Model))
         {
             @:window.location.href = "@Url.Action("Login","User")";
         }
@@ -16,17 +18,60 @@
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/MediQuick.Web.styles.css" asp-append-version="true" />
+    <script src="~/lib/jquery/dist/jquery.js"></script>
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" />
+    <script src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+
+    <script>
+        
+        
+        $(function() {
+            toastr.options = {
+              "closeButton": true,
+              "debug": false,
+              "newestOnTop": false,
+              "progressBar": true,
+              "positionClass": "toast-top-right",
+              "preventDuplicates": false,
+              "onclick": null,
+              "showDuration": "300",
+              "hideDuration": "1000",
+              "timeOut": "5000",
+              "extendedTimeOut": "1000",
+              "showEasing": "swing",
+              "hideEasing": "linear",
+              "showMethod": "fadeIn",
+              "hideMethod": "fadeOut"
+            }
+
+            @if (Model.Messages != null)
+            {
+                foreach (var message in Model.Messages)
+                {
+                    @:toastr["@message.Type.ToString().ToLower()"]("@message.Text");
+                }
+            }
+        })
+        
+    </script>
 </head>
 <body>
     <header>
         <div class="topnav">
-            <a class="active" b-e1ocawbhh6 asp-area="" asp-controller="Home" asp-action="Index">Home</a>
-            <a  b-e1ocawbhh6 asp-area="" asp-controller="Home" asp-action="About">About</a>
-            <a  b-e1ocawbhh6 asp-area="" asp-controller="Home" asp-action="About">Contact</a>
+            <a class="active" href="@Url.Action("Index", "Home")">Home</a>
+            <a href="@Url.Action("About", "Home")">About</a>
+
+            @if(Model != null && Model.User != null && Model.User.UsersRoles != null &&
+                Model.User.UsersRoles.Select(x => x.Role.Name).Contains(RoleType.admin.ToString()))
+            {
+                    <a b-e1ocawbhh6 asp-area="" asp-controller="Admin" asp-action="CreateUser">Create User</a>
+
+            }
+
           @if((Model != null && Model.User == null) || Model == null )
             {
                 <div class="login-container round-corners ">
-                    <a class="active round-corners "  b-e1ocawbhh6 asp-area="" asp-controller="User" asp-action="Login">Log in</a>
+                    <a class="round-corners "  b-e1ocawbhh6 asp-area="" asp-controller="User" asp-action="Login">Log in</a>
                 </div>
             }
 

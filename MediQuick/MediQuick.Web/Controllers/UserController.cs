@@ -31,7 +31,7 @@ namespace MediQuick.Web.Controllers
         {
             SetUpBaseModel(model);
 
-            if (userService.LoginUser(model.Username, model.Password))
+           if (userService.LoginUser(model.Username, model.Password))
             {
                 CookieOptions cookieOptions = new CookieOptions();
                 cookieOptions.Expires = DateTime.UtcNow.AddDays(30);

@@ -9,10 +9,14 @@ namespace MediQuick.Services
     public class UserService : IUserService
     {
         private IUserRepository userRepository;
+        private readonly IRoleRepository roleRepository;
+        private readonly IUnitOfWork unitOfWork;
 
-        public UserService(IUserRepository userRepository)
+        public UserService(IUserRepository userRepository, IRoleRepository roleRepository, IUnitOfWork unitOfWork)
         {
             this.userRepository = userRepository;
+            this.roleRepository = roleRepository;
+            this.unitOfWork = unitOfWork;
         }
 
         public bool LoginUser(string? username, string? password)
@@ -56,6 +60,53 @@ namespace MediQuick.Services
             var user = userRepository.GetByUsernameAndPassword(username, password);
 
             return user;
+        }
+
+        public bool CreateUser(string username, string password, int hospitalId, List<int> roles)
+        {
+            if (userRepository.DoesUserExistByName(username))
+            {
+                return false;
+            }
+
+            if (roles == null)
+            {
+                return false;
+            }
+
+            User user = new User();
+
+            user.Name = username;
+            user.Password = HashText(password);
+            user.HospitalId = hospitalId;
+
+            userRepository.AddUser(user);
+
+            unitOfWork.Commit();
+
+            User? dbUser = this.GetUserByUsernameAndPassword(username, password);
+
+            if (dbUser == null)
+            {
+                return false;
+            }
+
+            for (int i = 0; i < roles.Count; i++)
+            {
+                if (roleRepository.GetRoleById(roles[i]) == null)
+                {
+                    return false;
+                }
+            }
+
+            for (int i = 0; i < roles.Count; i++)
+            {
+                userRepository.AddRoleToUser(dbUser.Id, roles[i]);
+            }
+
+            unitOfWork.Commit();
+
+            return true;
         }
 
         private string HashText(string text)

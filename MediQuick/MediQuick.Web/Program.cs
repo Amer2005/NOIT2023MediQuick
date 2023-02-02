@@ -31,6 +31,8 @@ namespace MediQuick.Web
             builder.Services.AddScoped<IUserRepository, UserRepository>();
 
             builder.Services.AddScoped<IUserService, UserService>();
+            builder.Services.AddScoped<IHospitalService, HospitalService>();
+            builder.Services.AddScoped<IRoleService, RoleService>();
 
             var app = builder.Build();
 

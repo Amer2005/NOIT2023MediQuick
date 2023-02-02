@@ -1,0 +1,89 @@
+﻿@using MediQuick.Data.Enums
+@{
+    ViewData["Title"] = "CreateUser";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    Model.Authorised = true;
+    Model.AllowedRoles = new List<string> { RoleType.admin.ToString() };
+}
+
+@model CreateUserModel
+
+@using (Html.BeginForm("CreateUserPost", "Admin", FormMethod.Post)){
+
+    for(int i = 0; i < Model.Hospitals.Count; i++)
+    {
+        <input type="hidden" asp-for="Hospitals[i].Id"/>
+        <input type="hidden" asp-for="Hospitals[i].Name"/>
+    }
+
+    for(int i = 0; i < Model.Roles.Count; i++)
+    {
+        <input type="hidden" asp-for="Roles[i].Id"/>
+        <input type="hidden" asp-for="Roles[i].Name"/>
+    }
+
+    <section class="vh-100" style="background-color: #fffff;">
+      <div class="container py-5 h-100">
+        <div class="row d-flex justify-content-center align-items-center">
+          <div class="col-12 col-md-8 col-lg-6 col-xl-5">
+            <div class="card shadow-2-strong" style="border-radius: 1rem;">
+              <div class="card-body p-5 text-center">
+            
+                <h3 class="mb-5">Create User</h3>
+
+                <div class="form-outline mb-4">
+                  @Html.TextBoxFor(x => x.Username, new {@class = "form-control form-control-lg"})
+                  <label class="form-label">Username</label>
+                  <br />
+                  <span asp-validation-for="@Model.Username" class="text-danger"></span>
+                </div>
+
+                <div class="form-outline mb-4">
+                  @Html.TextBoxFor(x => x.Password, new {@class = "form-control form-control-lg", type="password"})
+                  <label class="form-label">Password</label>
+                  <br />
+                  <span asp-validation-for="@Model.Password" class="text-danger"></span>
+                </div>
+
+                <div class="form-outline mb-4">
+                  @Html.TextBoxFor(x => x.RepeatPassword, new {@class = "form-control form-control-lg", type="password"})
+                  <label class="form-label">Repeat Password</label>
+                  <br />
+                  <span asp-validation-for="@Model.RepeatPassword" class="text-danger"></span>
+                </div>
+
+                <div class="form-outline mb-4">
+                  @Html.DropDownListFor(x => x.HospitalId, new SelectList(Model.Hospitals, "Id", "Name"),
+                  new {@class = "form-control"})
+                  <label class="form-label">Hospital</label>
+                  <br />
+                </div>
+
+                <div class="form-outline mb-4">
+                  @Html.DropDownListFor(x => x.RoleIds, new SelectList(Model.Roles, "Id", "Name"),
+                  new {@class = "form-control chosen-role", multiple = "multiple"})
+                  <label class="form-label">Hospital</label>
+                  <br />
+                </div>
+
+                <button class="btn btn-primary btn-lg btn-block" type="submit">Create User</button>
+
+
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+}
+
+@section Scripts{
+
+    <script type="text/javascript">
+    
+        $(function () {
+            $(".chosen-role").chosen(); 
+        })    
+
+    </script>
+}
