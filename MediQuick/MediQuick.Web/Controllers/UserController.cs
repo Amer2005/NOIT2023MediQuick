@@ -17,6 +17,15 @@ namespace MediQuick.Web.Controllers
             return View("LoginView", loginModel);
         }
 
+        [HttpGet]
+        public IActionResult Logout(BaseModel model)
+        {
+            Response.Cookies.Delete("username");
+            Response.Cookies.Delete("password");
+
+            return RedirectToAction("Index", "Home", new BaseModel());
+        }
+
         [HttpPost]
         public IActionResult LoginUser(LoginModel model)
         {
@@ -31,11 +40,10 @@ namespace MediQuick.Web.Controllers
                 Response.Cookies.Append("username", model.Username, cookieOptions);
                 Response.Cookies.Append("password", model.Password, cookieOptions);
 
-                return RedirectToAction("Index", "Home", new BaseModel() { Message = "Logged in"});
+                return RedirectToAction("Index", "Home", new BaseModel());
             }
 
             model.Password = null;
-            model.Message = "failed";
             return View("LoginView", model);
         }
     }
