@@ -34,3 +34,9 @@ steps:
     ArtifactName: 'upload'
     publishLocation: 'Container'
 
+- task: FileTransform@1
+  inputs:
+    folderPath: '$(System.DefaultWorkingDirectory)/**/*.zip'
+    fileType: 'json'
+    targetFiles: '*/MediQuick.Web/appsettings.json'
+
