@@ -41,14 +41,25 @@ namespace MediQuick.Web.Controllers
                 return View("CreateUser", model);
             }
 
-            if(!userService.CreateUser(model.Username, model.Password, model.HospitalId, model.RoleIds))
+            try
             {
-                model.Messages.Add(new Message("User creation failed", MessageType.Error));
+                userService.CreateUser(model.Username, model.Password, model.HospitalId, model.RoleIds);
+
+                model.Messages.Add(new Message("User created successfully", MessageType.Success));
+
+                model.Username = "";
+                model.Password = "";
+                model.RepeatPassword = "";
+                model.RoleIds = new List<int>();
+                model.HospitalId = 0;
+
                 return View("CreateUser", model);
             }
-
-            model.Messages.Add(new Message("User created successfully", MessageType.Success));
-            return View("CreateUser", model);
+            catch (ArgumentException e)
+            {
+                model.Messages.Add(new Message(e.Message, MessageType.Error));
+                return View("CreateUser", model);
+            }
         }
     }
 }

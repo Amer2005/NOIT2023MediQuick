@@ -19,16 +19,16 @@ namespace MediQuick.Services
             this.unitOfWork = unitOfWork;
         }
 
-        public bool LoginUser(string? username, string? password)
+        public void LoginUser(string? username, string? password)
         {
             if(string.IsNullOrEmpty(username))
             {
-                return false;
+                throw new ArgumentException("The username cannot be empty!");
             }
 
             if(string.IsNullOrEmpty(password))
             {
-                return false;
+                throw new ArgumentException("The password cannot be empty!");
             }
 
             password = HashText(password);
@@ -37,10 +37,8 @@ namespace MediQuick.Services
 
             if(user == null)
             {
-                return false;
+                throw new ArgumentException("Wrong username or password!");
             }
-
-            return true;
         }
 
         public User? GetUserByUsernameAndPassword(string? username, string? password)
@@ -62,16 +60,16 @@ namespace MediQuick.Services
             return user;
         }
 
-        public bool CreateUser(string username, string password, int hospitalId, List<int> roles)
+        public void CreateUser(string username, string password, int hospitalId, List<int> roles)
         {
             if (userRepository.DoesUserExistByName(username))
             {
-                return false;
+                throw new ArgumentException("User by that name already exists!");
             }
 
-            if (roles == null)
+            if (roles == null || roles.Count == 0)
             {
-                return false;
+                throw new ArgumentException("Roles cannot be empty!");
             }
 
             User user = new User();
@@ -84,29 +82,25 @@ namespace MediQuick.Services
 
             unitOfWork.Commit();
 
-            User? dbUser = this.GetUserByUsernameAndPassword(username, password);
-
-            if (dbUser == null)
+            if (user == null)
             {
-                return false;
+                throw new NullReferenceException("User is null!");
             }
 
             for (int i = 0; i < roles.Count; i++)
             {
                 if (roleRepository.GetRoleById(roles[i]) == null)
                 {
-                    return false;
+                    throw new Exception("Role was not found!");
                 }
             }
 
             for (int i = 0; i < roles.Count; i++)
             {
-                userRepository.AddRoleToUser(dbUser.Id, roles[i]);
+                userRepository.AddRoleToUser(user.Id, roles[i]);
             }
 
             unitOfWork.Commit();
-
-            return true;
         }
 
         private string HashText(string text)

@@ -1,5 +1,6 @@
 ﻿using MediQuick.Services.Contracts;
 using MediQuick.Web.Models;
+using MediQuick.Web.Models.Enums;
 using Microsoft.AspNetCore.Mvc;
 
 namespace MediQuick.Web.Controllers
@@ -31,8 +32,10 @@ namespace MediQuick.Web.Controllers
         {
             SetUpBaseModel(model);
 
-           if (userService.LoginUser(model.Username, model.Password))
+            try
             {
+                userService.LoginUser(model.Username, model.Password);
+
                 CookieOptions cookieOptions = new CookieOptions();
                 cookieOptions.Expires = DateTime.UtcNow.AddDays(30);
                 cookieOptions.Path = "/";
@@ -42,9 +45,14 @@ namespace MediQuick.Web.Controllers
 
                 return RedirectToAction("Index", "Home", new BaseModel());
             }
+            catch(Exception ex)
+            {
+                model.Password = null;
 
-            model.Password = null;
-            return View("LoginView", model);
+                model.Messages.Add(new Message(ex.Message, MessageType.Error));
+
+                return View("LoginView", model);
+            }
         }
     }
 }
