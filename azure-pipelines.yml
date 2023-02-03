@@ -28,15 +28,15 @@ steps:
     platform: '$(buildPlatform)'
     configuration: '$(buildConfiguration)'
 
-- task: PublishBuildArtifacts@1
-  inputs:
-    PathtoPublish: '$(Build.ArtifactStagingDirectory)'
-    ArtifactName: 'upload'
-    publishLocation: 'Container'
-
 - task: FileTransform@1
   inputs:
     folderPath: '$(System.DefaultWorkingDirectory)/**/*.zip'
     fileType: 'json'
     targetFiles: '*/MediQuick.Web/appsettings.json'
+
+- task: PublishBuildArtifacts@1
+  inputs:
+    PathtoPublish: '$(Build.ArtifactStagingDirectory)'
+    ArtifactName: 'upload'
+    publishLocation: 'Container'
 
