@@ -16,5 +16,10 @@ namespace MediQuick.Data.Repositories
         {
             this.dbContext = dbContext;
         }
+
+        public void AddLocation(Location location)
+        {
+            dbContext.Locations.Add(location);
+        }
     }
 }

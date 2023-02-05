@@ -1,0 +1,48 @@
+﻿@using MediQuick.Data.Enums
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+    ViewData["Title"] = "Create Hospital";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    Model.Authorised = true;
+    Model.AllowedRoles = new List<string> { RoleType.admin.ToString() };
+}
+
+@model CreateHospitalModel
+
+<link rel="stylesheet" href="https://js.arcgis.com/4.25/esri/themes/light/main.css">
+<script src="https://js.arcgis.com/4.25/"></script>
+<script src="~/js/create-hospital.js"></script>
+
+@using (Html.BeginForm("CreateHospitalPost", "Admin", FormMethod.Post)){
+<section class="vh-100" style="background-color: #fffff;">
+    <div class="container py-5 h-100">
+        <div class="row d-flex justify-content-center align-items-center setHeightToNinety">
+            <div class="col-12 col-md-8 col-lg-6 col-xl-5 setHeightToHundred">
+                <div class="card shadow-2-strong setHeightToHundred" style="border-radius: 1rem;">
+                    <div class="card-body p-5 text-center setHeightToHundred">
+                        <h3 class="mb-5">Create Hospital</h3>
+
+                        <div class="form-outline mb-4">
+                            @Html.TextBoxFor(x => x.Name, new {@class = "form-control form-control-lg"})
+                            <label class="form-label">Hospital Name</label>
+                            <br />
+                            <span asp-validation-for="@Model.Name" class="text-danger"></span>
+                        </div>
+
+                        @Html.HiddenFor(x => x.Latitude, new{id = "latitudeInput"})
+                        @Html.HiddenFor(x => x.Longitude, new{id = "longitudeInput"})
+
+                        <div id="viewDiv"></div>
+
+                        <button class="btn btn-primary btn-lg btn-block" type="submit">Create Hospital</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+}
+
+

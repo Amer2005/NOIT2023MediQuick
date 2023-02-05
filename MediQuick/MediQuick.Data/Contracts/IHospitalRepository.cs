@@ -5,6 +5,7 @@ namespace MediQuick.Data.Contracts
 {
     public interface IHospitalRepository
     {
+        void AddHospital(Hospital hospital);
         List<Hospital> GetAllHospitals();
     }
 }

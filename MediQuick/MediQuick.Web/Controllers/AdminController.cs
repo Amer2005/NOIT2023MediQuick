@@ -61,5 +61,40 @@ namespace MediQuick.Web.Controllers
                 return View("CreateUser", model);
             }
         }
+
+        [HttpGet]
+        public IActionResult CreateHospital(CreateHospitalModel model)
+        {
+            SetUpBaseModel(model);
+
+
+            return View(model);
+        }
+
+        [HttpPost]
+        public IActionResult CreateHospitalPost(CreateHospitalModel model)
+        {
+            SetUpBaseModel(model);
+
+            if (model.Latitude == 0 || model.Latitude == null || model.Longitude == 0 || model.Longitude == null)
+            {
+                model.Messages.Add(new Message("Please select valid Longtitute and Latitude", MessageType.Error));
+                return View("CreateHospital", model);
+            }
+
+            if(String.IsNullOrEmpty(model.Name))
+            {
+                model.Messages.Add(new Message("Hospital name cannot be empty", MessageType.Error));
+                return View("CreateHospital", model);
+            }
+
+
+            hospitalService.CreateHospital(model.Name, (decimal)model.Longitude, (decimal)model.Latitude);
+
+            model.Messages.Add(new Message("Hospital created successfully", MessageType.Success));
+            return View("CreateHospital", model);
+        }
+
+
     }
 }

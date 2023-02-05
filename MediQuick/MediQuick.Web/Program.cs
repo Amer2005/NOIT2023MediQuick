@@ -33,6 +33,7 @@ namespace MediQuick.Web
             builder.Services.AddScoped<IUserService, UserService>();
             builder.Services.AddScoped<IHospitalService, HospitalService>();
             builder.Services.AddScoped<IRoleService, RoleService>();
+            builder.Services.AddScoped<ILocationService, LocationService>();
 
             var app = builder.Build();
 

@@ -16,3 +16,18 @@ html {
 body {
   margin-bottom: 60px;
 }
+
+#viewDiv {
+    padding: 0;
+    margin: 0;
+    height: 50%;
+    width: 100%;
+}
+
+.setHeightToNinety {
+    height: 90%;
+}
+
+.setHeightToHundred {
+    height: 100%;
+}

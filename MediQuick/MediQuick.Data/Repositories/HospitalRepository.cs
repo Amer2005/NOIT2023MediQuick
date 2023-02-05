@@ -21,5 +21,10 @@ namespace MediQuick.Data.Repositories
         {
             return dbContext.Hospitals.ToList();
         }
+
+        public void AddHospital(Hospital hospital)
+        {
+            dbContext.Hospitals.Add(hospital);
+        }
     }
 }
