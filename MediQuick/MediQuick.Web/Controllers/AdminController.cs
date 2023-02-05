@@ -89,10 +89,19 @@ namespace MediQuick.Web.Controllers
             }
 
 
-            hospitalService.CreateHospital(model.Name, (decimal)model.Longitude, (decimal)model.Latitude);
+            try
+            {
+                hospitalService.CreateHospital(model.Name, (decimal)model.Longitude, (decimal)model.Latitude);
 
-            model.Messages.Add(new Message("Hospital created successfully", MessageType.Success));
-            return View("CreateHospital", model);
+                model.Messages.Add(new Message("Hospital created successfully", MessageType.Success));
+                return View("CreateHospital", model);
+            }
+            catch (ArgumentException e)
+            {
+                model.Messages.Add(new Message(e.Message, MessageType.Error));
+                return View("CreateHospital", model);
+            }
+            
         }
 
 

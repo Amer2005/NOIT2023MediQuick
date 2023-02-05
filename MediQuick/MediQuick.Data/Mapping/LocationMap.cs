@@ -16,6 +16,9 @@ namespace MediQuick.Data.Mapping
             builder.ToTable("Location");
 
             builder.HasKey(x => x.Id);
+
+            builder.Property(x => x.Longitude).HasPrecision(9, 6);
+            builder.Property(x => x.Latitude).HasPrecision(8, 6);
         }
     }
 }
