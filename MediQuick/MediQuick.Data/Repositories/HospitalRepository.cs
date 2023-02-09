@@ -1,5 +1,6 @@
 ﻿using MediQuick.Data.Contracts;
 using MediQuick.Data.Models;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -25,6 +26,11 @@ namespace MediQuick.Data.Repositories
         public void AddHospital(Hospital hospital)
         {
             dbContext.Hospitals.Add(hospital);
+        }
+
+        public Hospital GetHospitalById(int id)
+        {
+            return dbContext.Hospitals.Include(x => x.Location).FirstOrDefault(x => x.Id == id);
         }
     }
 }

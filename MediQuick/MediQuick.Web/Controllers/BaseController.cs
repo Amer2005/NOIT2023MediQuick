@@ -44,6 +44,11 @@ namespace MediQuick.Web.Controllers
 
         protected void SetUpBaseModel(BaseModel baseModel)
         {
+            if (baseModel == null)
+            {
+                baseModel = new BaseModel();
+            }
+
             if (Request.Cookies["username"] != null && Request.Cookies["password"] != null)
             {
                 string? username = Request.Cookies["username"];

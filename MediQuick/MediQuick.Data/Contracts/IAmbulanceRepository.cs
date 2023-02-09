@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MediQuick.Data.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,6 +9,6 @@ namespace MediQuick.Data.Contracts
 {
     public interface IAmbulanceRepository
     {
-
+        void AddAmbulance(Ambulance ambulance);
     }
 }

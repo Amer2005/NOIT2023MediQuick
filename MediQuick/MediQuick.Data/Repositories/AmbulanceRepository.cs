@@ -16,5 +16,10 @@ namespace MediQuick.Data.Repositories
         {
             this.dbContext = dbContext;
         }
+
+        public void AddAmbulance(Ambulance ambulance)
+        {
+            dbContext.Ambulances.Add(ambulance);
+        }
     }
 }

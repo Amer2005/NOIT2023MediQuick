@@ -7,5 +7,6 @@ namespace MediQuick.Data.Contracts
     {
         void AddHospital(Hospital hospital);
         List<Hospital> GetAllHospitals();
+        Hospital GetHospitalById(int id);
     }
 }

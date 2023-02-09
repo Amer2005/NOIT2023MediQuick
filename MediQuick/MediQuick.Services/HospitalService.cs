@@ -49,5 +49,10 @@ namespace MediQuick.Services
 
             unitOfWork.Commit();
         }
+
+        public Hospital GetHospitalById(int id)
+        {
+            return hospitalRepository.GetHospitalById(id);
+        }
     }
 }
