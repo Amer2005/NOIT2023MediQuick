@@ -10,5 +10,6 @@ namespace MediQuick.Services.Contracts
     public interface IRoleService
     {
         List<Role> GetAllRoles();
+        Role GetRoleByName(string name);
     }
 }

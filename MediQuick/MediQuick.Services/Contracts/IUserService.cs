@@ -9,7 +9,7 @@ namespace MediQuick.Services.Contracts
 {
     public interface IUserService
     {
-        void CreateUser(string username, string password, int hospitalId, List<int> roles);
+        User CreateUser(string username, string password, int hospitalId, List<int> roles);
         User? GetUserByUsernameAndPassword(string? username, string? password);
         void LoginUser(string? username, string? password);
     }

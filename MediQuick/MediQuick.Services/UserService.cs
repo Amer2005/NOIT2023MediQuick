@@ -60,7 +60,7 @@ namespace MediQuick.Services
             return user;
         }
 
-        public void CreateUser(string username, string password, int hospitalId, List<int> roles)
+        public User CreateUser(string username, string password, int hospitalId, List<int> roles)
         {
             if (userRepository.DoesUserExistByName(username))
             {
@@ -101,6 +101,8 @@ namespace MediQuick.Services
             }
 
             unitOfWork.Commit();
+
+            return user;
         }
 
         private string HashText(string text)

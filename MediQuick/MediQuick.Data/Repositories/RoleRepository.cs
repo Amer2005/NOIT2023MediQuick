@@ -26,5 +26,10 @@ namespace MediQuick.Data.Repositories
         {
             return dbContext.Roles.FirstOrDefault(x => x.Id == id);
         }
+
+        public Role GetRoleByName(string name)
+        {
+            return dbContext.Roles.FirstOrDefault(x => x.Name == name);
+        }
     }
 }

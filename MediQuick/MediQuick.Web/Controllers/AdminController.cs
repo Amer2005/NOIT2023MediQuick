@@ -1,4 +1,4 @@
-﻿using MediQuick.Data.Models;
+﻿ using MediQuick.Data.Models;
 using MediQuick.Services.Contracts;
 using MediQuick.Web.Models;
 using MediQuick.Web.Models.Enums;

@@ -9,6 +9,7 @@ namespace MediQuick.Data.Enums
     public enum RoleType
     {
         admin,
-        hospitalAdmin
+        hospitalAdmin,
+        ambulanceDriver
     }
 }

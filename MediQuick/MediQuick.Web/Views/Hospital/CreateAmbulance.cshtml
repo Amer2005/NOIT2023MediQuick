@@ -19,7 +19,7 @@
             <div class="card shadow-2-strong" style="border-radius: 1rem;">
               <div class="card-body p-5 text-center">
                 
-                <h3 class="mb-5">Create Ambulance</h3>
+                <h3 class="mb-5">Create Ambulance Driver</h3>
 
                 @if(Model.User.UsersRoles.Select(x => x.Role.Name).Contains(RoleType.admin.ToString()))
                 {
@@ -28,7 +28,29 @@
                     <label class="form-label">Hospital Id</label>
                     <br />
                 }
-                <button class="btn btn-primary btn-lg btn-block" type="submit">Create Ambulance</button>
+
+                <div class="form-outline mb-4">
+                  @Html.TextBoxFor(x => x.Username, new {@class = "form-control form-control-lg"})
+                  <label class="form-label">Username</label>
+                  <br />
+                  <span asp-validation-for="@Model.Username" class="text-danger"></span>
+                </div>
+
+                <div class="form-outline mb-4">
+                  @Html.TextBoxFor(x => x.Password, new {@class = "form-control form-control-lg", type="password"})
+                  <label class="form-label">Password</label>
+                  <br />
+                  <span asp-validation-for="@Model.Password" class="text-danger"></span>
+                </div>
+
+                <div class="form-outline mb-4">
+                  @Html.TextBoxFor(x => x.RepeatPassword, new {@class = "form-control form-control-lg", type="password"})
+                  <label class="form-label">Repeat Password</label>
+                  <br />
+                  <span asp-validation-for="@Model.RepeatPassword" class="text-danger"></span>
+                </div>
+
+                <button class="btn btn-primary btn-lg btn-block" type="submit">Create Ambulance Driver</button>
 
 
               </div>

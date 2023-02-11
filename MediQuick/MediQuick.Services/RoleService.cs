@@ -22,5 +22,10 @@ namespace MediQuick.Services
         {
             return roleRepository.GetAllRoles();
         }
+
+        public Role GetRoleByName(string name)
+        {
+            return roleRepository.GetRoleByName(name);
+        }
     }
 }

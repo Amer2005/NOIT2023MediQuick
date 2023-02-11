@@ -19,6 +19,10 @@ namespace MediQuick.Data.Models
 
         public int DestinationHospitalId { get; set; }
 
+        public int? UserId { get; set; }
+
+        public User User { get; set; }
+
         public bool IsAvailable { get; set; }
 
         public List<AmbulanceDevice> AmbulancesDevices { get; set; }

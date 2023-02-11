@@ -7,5 +7,6 @@ namespace MediQuick.Data.Contracts
     {
         public List<Role> GetAllRoles();
         Role GetRoleById(int id);
+        Role GetRoleByName(string name);
     }
 }

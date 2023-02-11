@@ -34,7 +34,15 @@ namespace MediQuick.Web.Controllers
 
                 SetUpHospitalId(model, ref hospitalId);
 
-                ambulanceService.CreateAmbulance((int)hospitalId);
+                if (model.Password != model.RepeatPassword)
+                {
+                    model.Messages.Add(new Message("Password and repeat password do not match", MessageType.Error));
+                    return View("CreateAmbulance", model);
+                }
+
+
+
+                ambulanceService.CreateAmbulanceDriver(model.Username, model.Password ,(int)hospitalId);
 
                 model.Messages.Add(new Message("Ambulance created!", MessageType.Success));
 
@@ -42,9 +50,15 @@ namespace MediQuick.Web.Controllers
             }
             catch (ArgumentException e)
             {
+                model.Messages.Add(new Message(e.Message, MessageType.Error));
+
+                return View("CreateAmbulance", model);
+            }
+            catch
+            {
                 BaseModel returnModel = new BaseModel();
 
-                returnModel.Messages.Add(new Message(e.Message, MessageType.Error));
+                returnModel.Messages.Add(new Message("An error occured while creating the ambulance", MessageType.Error));
 
                 return RedirectToAction("Index", "Home", returnModel);
             }
