@@ -31,6 +31,19 @@ namespace MediQuick.Services
             this.unitOfWork = unitOfWork;
         }
 
+        public Ambulance GetAmbulanceByUserId(int id)
+        {
+            return ambulanceRepository.GetByUserId(id);
+        }
+
+        public void UpdateAmbulanceLocation(Ambulance ambulance, decimal latitude, decimal longitude)
+        {
+            ambulance.Location.Longitude = longitude;
+            ambulance.Location.Latitude = latitude;
+
+            unitOfWork.Commit();
+        }
+
         public Ambulance CreateAmbulance(int hospitalId)
         {
             Ambulance ambulance = new Ambulance();

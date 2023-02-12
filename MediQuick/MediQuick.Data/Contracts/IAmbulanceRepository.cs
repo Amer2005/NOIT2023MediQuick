@@ -10,5 +10,6 @@ namespace MediQuick.Data.Contracts
     public interface IAmbulanceRepository
     {
         void AddAmbulance(Ambulance ambulance);
+        Ambulance GetByUserId(int id);
     }
 }

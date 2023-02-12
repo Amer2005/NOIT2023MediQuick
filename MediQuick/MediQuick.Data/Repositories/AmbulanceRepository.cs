@@ -1,5 +1,6 @@
 ﻿using MediQuick.Data.Contracts;
 using MediQuick.Data.Models;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,6 +16,14 @@ namespace MediQuick.Data.Repositories
         public AmbulanceRepository(IMediQuickDbContext dbContext)
         {
             this.dbContext = dbContext;
+        }
+
+        public Ambulance GetByUserId(int id)
+        {
+            return this.dbContext.Ambulances
+                .Include(x => x.User)
+                .Include(x => x.Location)
+                .FirstOrDefault(x => x.UserId == id);
         }
 
         public void AddAmbulance(Ambulance ambulance)

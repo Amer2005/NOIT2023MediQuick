@@ -26,8 +26,6 @@
     <script src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 
     <script>
-        
-        
         $(function() {
             toastr.options = {
               "closeButton": true,
@@ -45,6 +43,12 @@
               "hideEasing": "linear",
               "showMethod": "fadeIn",
               "hideMethod": "fadeOut"
+            }
+
+            @if(Model != null && Model.User != null && Model.User.UsersRoles != null &&
+                Model.User.UsersRoles.Select(x => x.Role.Name).Contains(RoleType.ambulanceDriver.ToString()))
+            {
+                @:startUpdatingLocation();
             }
 
             @if (Model.Messages != null)

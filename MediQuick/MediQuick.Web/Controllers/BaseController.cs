@@ -7,6 +7,9 @@ namespace MediQuick.Web.Controllers
 {
     public class BaseController : Controller
     {
+        private const string UsernameCookieName = "username";
+        private const string PasswordCookieName = "password";
+
         protected IUserService userService;
 
         public BaseController(IUserService userService)
@@ -49,10 +52,10 @@ namespace MediQuick.Web.Controllers
                 baseModel = new BaseModel();
             }
 
-            if (Request.Cookies["username"] != null && Request.Cookies["password"] != null)
+            if (Request.Cookies[UsernameCookieName] != null && Request.Cookies[PasswordCookieName] != null)
             {
-                string? username = Request.Cookies["username"];
-                string? password = Request.Cookies["password"];
+                string? username = Request.Cookies[UsernameCookieName];
+                string? password = Request.Cookies[PasswordCookieName];
 
                 baseModel.User = userService.GetUserByUsernameAndPassword(username, password);
             }

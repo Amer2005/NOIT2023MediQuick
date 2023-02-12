@@ -36,7 +36,12 @@ namespace MediQuick.Web
             builder.Services.AddScoped<ILocationService, LocationService>();
             builder.Services.AddScoped<IAmbulanceService, AmbulanceService>();
 
+            builder.Services.AddSwaggerGen();
+
             var app = builder.Build();
+
+            app.UseSwagger();
+            app.UseSwaggerUI();
 
             // Configure the HTTP request pipeline.
             if (!app.Environment.IsDevelopment())
