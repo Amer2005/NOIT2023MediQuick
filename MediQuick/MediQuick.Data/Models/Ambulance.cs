@@ -17,7 +17,11 @@ namespace MediQuick.Data.Models
 
         public int? PatientId { get; set; }
 
+        public Patient Patient { get; set; }
+
         public int DestinationHospitalId { get; set; }
+
+        public Hospital DestinationHospital { get; set; }
 
         public int? UserId { get; set; }
 

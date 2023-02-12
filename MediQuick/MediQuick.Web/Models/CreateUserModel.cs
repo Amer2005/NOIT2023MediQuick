@@ -10,7 +10,7 @@ namespace MediQuick.Web.Models
 
         public string? RepeatPassword { get; set; }
 
-        public int HospitalId { get; set; }
+        public int? HospitalId { get; set; }
 
         public List<int>? RoleIds { get; set; }
 

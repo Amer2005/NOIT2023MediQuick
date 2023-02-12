@@ -15,77 +15,18 @@ namespace MediQuick.Web.Controllers
             this.ambulanceService = ambulanceService;
         }
 
+
         [HttpGet]
-        public IActionResult CreateAmbulance(CreateAmbulanceModel model)
+        public IActionResult ViewHospitalAmbulances(BaseModel model)
         {
             SetUpBaseModel(model);
 
-            return View(model);
-        }
-
-        [HttpPost]
-        public IActionResult CreateAmbulancePost(CreateAmbulanceModel model)
-        {
-            try
+            if(model.User == null || model.User.UsersRoles == null )
             {
-                int? hospitalId = model.HospitalId;
 
-                SetUpBaseModel(model);
-
-                SetUpHospitalId(model, ref hospitalId);
-
-                if (model.Password != model.RepeatPassword)
-                {
-                    model.Messages.Add(new Message("Password and repeat password do not match", MessageType.Error));
-                    return View("CreateAmbulance", model);
-                }
-
-
-
-                ambulanceService.CreateAmbulanceDriver(model.Username, model.Password ,(int)hospitalId);
-
-                model.Messages.Add(new Message("Ambulance created!", MessageType.Success));
-
-                return View("CreateAmbulance", model);
-            }
-            catch (ArgumentException e)
-            {
-                model.Messages.Add(new Message(e.Message, MessageType.Error));
-
-                return View("CreateAmbulance", model);
-            }
-            catch
-            {
-                BaseModel returnModel = new BaseModel();
-
-                returnModel.Messages.Add(new Message("An error occured while creating the ambulance", MessageType.Error));
-
-                return RedirectToAction("Index", "Home", returnModel);
-            }
-        }
-
-        private void SetUpHospitalId(BaseModel model,ref int? hospitalId)
-        {
-            if (hospitalId == null)
-            {
-                if (model.User == null || model.User.HospitalId == null)
-                {
-                    BaseModel returnModel = new BaseModel();
-
-                    //returnModel.Messages.Add(new Message("User hospital not found!", MessageType.Error));
-                    throw new ArgumentException("Hospital not found");
-                }
-
-                hospitalId = model.User.HospitalId;
             }
 
-            if (hospitalId != model.User.HospitalId &&
-                !model.User.UsersRoles.Select(x => x.Role.Name).Contains(RoleType.admin.ToString()))
-            {
-                BaseModel returnModel = new BaseModel();
-
-                throw new ArgumentException("You dont have access to this hospital!");
-            }
+            return View();
         }
     }
 }

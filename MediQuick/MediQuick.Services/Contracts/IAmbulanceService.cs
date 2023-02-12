@@ -10,7 +10,9 @@ namespace MediQuick.Services.Contracts
     public interface IAmbulanceService
     {
         Ambulance CreateAmbulance(int hospitalId);
-        void CreateAmbulanceDriver(string username, string password, int hospitalId);
+
+        void AssignAmbulance(int userId, int hospitalId);
+
         Ambulance GetAmbulanceByUserId(int id);
         void UpdateAmbulanceLocation(Ambulance ambulance, decimal latitude, decimal longitude);
     }

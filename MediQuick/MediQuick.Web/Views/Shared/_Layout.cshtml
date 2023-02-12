@@ -46,7 +46,7 @@
             }
 
             @if(Model != null && Model.User != null && Model.User.UsersRoles != null &&
-                Model.User.UsersRoles.Select(x => x.Role.Name).Contains(RoleType.ambulanceDriver.ToString()))
+                Model.User.UsersRoles.Select(x => x.Role.Name).Contains(RoleType.AmbulanceDriver.ToString()))
             {
                 @:startUpdatingLocation();
             }
@@ -69,28 +69,20 @@
             <a href="@Url.Action("About", "Home")">About</a>
 
             @if(Model != null && Model.User != null && Model.User.UsersRoles != null &&
-                Model.User.UsersRoles.Select(x => x.Role.Name).Contains(RoleType.admin.ToString()))
+                Model.User.UsersRoles.Select(x => x.Role.Name).Contains(RoleType.Admin.ToString()))
             {
                     <a b-e1ocawbhh6 asp-area="" asp-controller="Admin" asp-action="CreateUser">Create User</a>
 
             }
 
             @if(Model != null && Model.User != null && Model.User.UsersRoles != null &&
-                Model.User.UsersRoles.Select(x => x.Role.Name).Contains(RoleType.admin.ToString()))
+                Model.User.UsersRoles.Select(x => x.Role.Name).Contains(RoleType.Admin.ToString()))
             {
                     <a b-e1ocawbhh6 asp-area="" asp-controller="Admin" asp-action="CreateHospital">Create Hospital</a>
 
             }
 
-            @if(Model != null && Model.User != null && Model.User.UsersRoles != null &&
-                (Model.User.UsersRoles.Select(x => x.Role.Name).Contains(RoleType.admin.ToString()) ||
-                 Model.User.UsersRoles.Select(x => x.Role.Name).Contains(RoleType.hospitalAdmin.ToString())))
-            {
-                    <a b-e1ocawbhh6 asp-area="" asp-controller="Hospital" asp-action="CreateAmbulance">Create Ambulance Driver</a>
-
-            }
-
-          @if((Model != null && Model.User == null) || Model == null )
+            @if((Model != null && Model.User == null) || Model == null )
             {
                 <div class="login-container round-corners ">
                     <a class="round-corners "  b-e1ocawbhh6 asp-area="" asp-controller="User" asp-action="Login">Log in</a>

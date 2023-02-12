@@ -1,4 +1,5 @@
-﻿ using MediQuick.Data.Models;
+﻿using MediQuick.Data.Enums;
+using MediQuick.Data.Models;
 using MediQuick.Services.Contracts;
 using MediQuick.Web.Models;
 using MediQuick.Web.Models.Enums;
@@ -10,11 +11,16 @@ namespace MediQuick.Web.Controllers
     {
         private readonly IHospitalService hospitalService;
         private readonly IRoleService roleService;
+        private readonly IAmbulanceService ambulanceService;
 
-        public AdminController(IUserService userService, IHospitalService hospitalService, IRoleService roleService) : base(userService)
+        public AdminController(IUserService userService,
+                                IHospitalService hospitalService,
+                                IRoleService roleService,
+                                IAmbulanceService ambulanceService) : base(userService)
         {
             this.hospitalService = hospitalService;
             this.roleService = roleService;
+            this.ambulanceService = ambulanceService;
         }
 
         [HttpGet]
@@ -25,7 +31,16 @@ namespace MediQuick.Web.Controllers
             model.RoleIds = new List<int>();
 
             model.Hospitals = hospitalService.GetAllHospitals();
-            model.Roles = roleService.GetAllRoles();
+
+            if (!model.User.UsersRoles.Select(x => x.Role.Name).Contains(RoleType.Admin.ToString()) &&
+                model.User.UsersRoles.Select(x => x.Role.Name).Contains(RoleType.HospitalAdmin.ToString()))
+            {
+                model.Roles = roleService.GetSpecificRoles(new List<RoleType>() { RoleType.AmbulanceDriver, RoleType.HospitalEmployee });
+            }
+            else
+            {
+                model.Roles = roleService.GetAllRoles();
+            }
 
             return View(model);
         }
@@ -43,7 +58,18 @@ namespace MediQuick.Web.Controllers
 
             try
             {
-                userService.CreateUser(model.Username, model.Password, model.HospitalId, model.RoleIds);
+
+                User user = userService.CreateUser(model.Username,
+                    model.Password,
+                    model.HospitalId ?? (int)model.User.HospitalId,
+                    model.RoleIds);
+
+                List<Role> selectedRoles = model.RoleIds.Select(x => roleService.GetRoleById(x)).ToList();
+
+                if (selectedRoles.Any(x => x.Name == RoleType.AmbulanceDriver.ToString()))
+                {
+                    ambulanceService.AssignAmbulance(user.Id, model.User.HospitalId ?? (int)model.HospitalId);
+                }
 
                 model.Messages.Add(new Message("User created successfully", MessageType.Success));
 
@@ -82,7 +108,7 @@ namespace MediQuick.Web.Controllers
                 return View("CreateHospital", model);
             }
 
-            if(String.IsNullOrEmpty(model.Name))
+            if (String.IsNullOrEmpty(model.Name))
             {
                 model.Messages.Add(new Message("Hospital name cannot be empty", MessageType.Error));
                 return View("CreateHospital", model);
@@ -101,7 +127,7 @@ namespace MediQuick.Web.Controllers
                 model.Messages.Add(new Message(e.Message, MessageType.Error));
                 return View("CreateHospital", model);
             }
-            
+
         }
 
 

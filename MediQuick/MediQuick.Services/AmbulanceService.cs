@@ -72,15 +72,11 @@ namespace MediQuick.Services
             return ambulance;
         }
 
-        public void CreateAmbulanceDriver(string username, string password, int hospitalId)
+        public void AssignAmbulance(int userId, int hospitalId)
         {
-            User driver = userService.CreateUser(username, password, hospitalId, 
-                                                    new List<int>() 
-                                                    { roleService.GetRoleByName(RoleType.ambulanceDriver.ToString()).Id });
-
             Ambulance ambulance = this.CreateAmbulance(hospitalId);
 
-            ambulance.UserId = driver.Id;
+            ambulance.UserId = userId;
 
             unitOfWork.Commit();
         }

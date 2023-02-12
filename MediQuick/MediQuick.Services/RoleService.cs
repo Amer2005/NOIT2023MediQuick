@@ -1,4 +1,5 @@
 ﻿using MediQuick.Data.Contracts;
+using MediQuick.Data.Enums;
 using MediQuick.Data.Models;
 using MediQuick.Services.Contracts;
 using System;
@@ -21,6 +22,20 @@ namespace MediQuick.Services
         public List<Role> GetAllRoles()
         {
             return roleRepository.GetAllRoles();
+        }
+
+        public List<Role> GetSpecificRoles(List<RoleType> roles)
+        {
+            return roleRepository
+                .GetAllRoles()
+                .Where(x => roles
+                    .Select(y => y.ToString())
+                    .Contains(x.Name)).ToList();
+        }
+
+        public Role GetRoleById(int id)
+        {
+            return roleRepository.GetRoleById(id);
         }
 
         public Role GetRoleByName(string name)
