@@ -1,4 +1,5 @@
 ﻿using MediQuick.Data.Enums;
+using MediQuick.Data.Models;
 using MediQuick.Services.Contracts;
 using MediQuick.Web.Models;
 using MediQuick.Web.Models.Enums;
@@ -17,16 +18,24 @@ namespace MediQuick.Web.Controllers
 
 
         [HttpGet]
-        public IActionResult ViewHospitalAmbulances(BaseModel model)
+        public IActionResult ViewHospitalAmbulances(ViewHospitalAmbulancesModel model)
         {
             SetUpBaseModel(model);
 
-            if(model.User == null || model.User.UsersRoles == null )
+            if (!model.User.UsersRoles.Select(x => x.Role.Name).Contains(RoleType.Admin.ToString()) &&
+                (model.User.UsersRoles.Select(x => x.Role.Name).Contains(RoleType.HospitalEmployee.ToString()) ||
+                 model.User.UsersRoles.Select(x => x.Role.Name).Contains(RoleType.HospitalAdmin.ToString())))
             {
-
+                model.HospitalId = model.User.HospitalId;
             }
 
-            return View();
+            List<Ambulance> ambulances = ambulanceService.GetAllAmbulancesFromHospital((int)model.HospitalId);
+
+            model.AmbulanceStatuses = ambulances
+                .Select(x => new AmbulanceStatus(x.User.Name, !(x.PatientId == null), x.Id))
+                .ToList();
+
+            return View(model);
         }
     }
 }

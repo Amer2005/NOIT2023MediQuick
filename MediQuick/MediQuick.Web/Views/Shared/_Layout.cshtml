@@ -82,6 +82,21 @@
 
             }
 
+            @if(Model != null && Model.User != null && Model.User.UsersRoles != null &&
+                Model.User.UsersRoles.Select(x => x.Role.Name).Contains(RoleType.HospitalAdmin.ToString()))
+            {
+                <a b-e1ocawbhh6 asp-area="" asp-controller="Admin" asp-action="CreateUser">Register Employee</a>
+
+                
+            }
+
+            @if(Model != null && Model.User != null && Model.User.UsersRoles != null &&
+                (Model.User.UsersRoles.Select(x => x.Role.Name).Contains(RoleType.HospitalEmployee.ToString()) || 
+                 Model.User.UsersRoles.Select(x => x.Role.Name).Contains(RoleType.HospitalAdmin.ToString())))
+            {
+                <a b-e1ocawbhh6 asp-area="" asp-controller="Hospital" asp-action="ViewHospitalAmbulances">View Ambulances</a>
+            }
+
             @if((Model != null && Model.User == null) || Model == null )
             {
                 <div class="login-container round-corners ">

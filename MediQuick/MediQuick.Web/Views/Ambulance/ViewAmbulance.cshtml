@@ -1,0 +1,60 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@using MediQuick.Data.Enums
+@{
+    ViewData["Title"] = "View Ambulance";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    Model.Authorised = true;
+    Model.AllowedRoles = new List<string> { 
+        RoleType.Admin.ToString(),
+        RoleType.HospitalAdmin.ToString(),
+        RoleType.HospitalEmployee.ToString() };
+}
+
+@model ViewAmbulanceModel
+
+<link rel="stylesheet" href="https://js.arcgis.com/4.25/esri/themes/light/main.css">
+<script src="https://js.arcgis.com/4.25/"></script>
+<script src="~/js/view-ambulance.js"></script>
+
+<script>
+    showMapPoint(@Model.Ambulance.Location.Latitude, @Model.Ambulance.Location.Longitude
+                ,@Model.Ambulance.DestinationHospital.Location.Latitude, @Model.Ambulance.DestinationHospital.Location.Longitude);
+</script>
+
+<br />
+
+<table class="table bigger-text">
+    <tbody>
+    <tr>
+        <td class="bg-primary text-white">Driver</td>
+    </tr>
+        <td>@Model.Ambulance.User.Name</td>
+    <tr>
+    </tr>
+        <td class="bg-primary text-white">Status</td>
+    <tr>
+        <td class="@((Model.Ambulance.IsAvailable)? "text-success" : "text-danger")">@(((Model.Ambulance.IsAvailable))? "AVAILABLE" : "UNAVAILABLE")</td>
+    </tr>
+    </tr>
+        <td class="bg-primary text-white">Location</td>
+    <tr>
+        <td class="setHeightToNinety biggerTds">
+            Latitude: @Model.Ambulance.Location.Latitude Longitude: @Model.Ambulance.Location.Longitude
+            <br />
+            <div id="viewDiv"></div>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <div id="viewDivCustom"></div>
+        </td>
+    </tr>
+    </tr>
+        <td class="bg-primary text-white">Patient</td>
+    <tr>
+        <td>@((Model.Ambulance.PatientId == null)? "EMPTY" : "FULL")</td>
+    </tr>
+  </tbody>
+</table>

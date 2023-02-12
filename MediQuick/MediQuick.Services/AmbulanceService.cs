@@ -36,6 +36,16 @@ namespace MediQuick.Services
             return ambulanceRepository.GetByUserId(id);
         }
 
+        public Ambulance GetAmbulanceById(int id)
+        {
+            return ambulanceRepository.GetById(id);
+        }
+
+        public List<Ambulance> GetAllAmbulancesFromHospital(int hospitalId)
+        {
+            return ambulanceRepository.GetAllAmbulancesFromHospital(hospitalId);
+        }
+
         public void UpdateAmbulanceLocation(Ambulance ambulance, decimal latitude, decimal longitude)
         {
             ambulance.Location.Longitude = longitude;

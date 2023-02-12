@@ -1,5 +1,40 @@
 ﻿@*
     For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 *@
+@using MediQuick.Data.Enums
 @{
+    ViewData["Title"] = "View Ambulances";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    Model.Authorised = true;
+    Model.AllowedRoles = new List<string> { 
+        RoleType.Admin.ToString(),
+        RoleType.HospitalAdmin.ToString(),
+        RoleType.HospitalEmployee.ToString() };
 }
+
+@model ViewHospitalAmbulancesModel
+
+<br />
+<br />
+
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Driver</th>
+      <th scope="col">Has Patient</th>
+      <th scope="col">More info</th>
+    </tr>
+  </thead>
+  <tbody>
+    @for (int i = 0; i < Model.AmbulanceStatuses.Count; i++)
+    {
+        <tr>
+            <th scope="row">@(i + 1)</th>
+            <td>@Model.AmbulanceStatuses[i].DriverName</td>
+            <td>@Model.AmbulanceStatuses[i].HasPatient</td>
+            <td><a href="/Ambulance/ViewAmbulance?AmbulanceId=@Model.AmbulanceStatuses[i].AmbulanceId">View</a></td>
+        </tr> 
+    }
+  </tbody>
+</table>

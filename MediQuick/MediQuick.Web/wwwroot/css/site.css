@@ -17,6 +17,13 @@ body {
   margin-bottom: 60px;
 }
 
+#viewDivCustom {
+    padding: 0;
+    margin: 0;
+    height: 300px;
+    width: 300px;
+}
+
 #viewDiv {
     padding: 0;
     margin: 0;
@@ -30,4 +37,12 @@ body {
 
 .setHeightToHundred {
     height: 100%;
+}
+
+.bigger-text {
+    font-size: 20px;
+}
+
+.bg-active {
+    background-color: #2196F3;
 }
