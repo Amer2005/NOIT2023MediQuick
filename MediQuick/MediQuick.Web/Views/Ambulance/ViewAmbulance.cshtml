@@ -30,10 +30,12 @@
     <tr>
         <td class="bg-primary text-white">Driver</td>
     </tr>
+    <tr>    
         <td>@Model.Ambulance.User.Name</td>
-    <tr>
     </tr>
+    <tr>
         <td class="bg-primary text-white">Status</td>
+    </tr>
     <tr>
         <td class="@((Model.Ambulance.IsAvailable)? "text-success" : "text-danger")">@(((Model.Ambulance.IsAvailable))? "AVAILABLE" : "UNAVAILABLE")</td>
     </tr>
@@ -51,10 +53,66 @@
             <div id="viewDivCustom"></div>
         </td>
     </tr>
-    </tr>
         <td class="bg-primary text-white">Patient</td>
-    <tr>
-        <td>@((Model.Ambulance.PatientId == null)? "EMPTY" : "FULL")</td>
     </tr>
-  </tbody>
+    
+    @if(Model.Ambulance.Patient != null)
+    {
+        <tr>
+            <td class="bg-primary text-white">Status</td>
+        </tr>
+        <tr>
+            <td>@Model.Ambulance.Patient.Status</td>
+        </tr>
+        <tr>
+            <td class="bg-primary text-white">Info</td>
+        </tr>
+        <tr>
+            <td>@Model.Ambulance.Patient.ExtraInfo</td>
+        </tr>
+        <tr>
+            <td class="bg-primary text-white">Age</td>
+        </tr>
+        <tr>
+            @if(Model.Ambulance.Patient.DateOfBirth != null)
+            {
+                <td>@((new DateTime(1, 1, 1) + (DateTime.Now - Model.Ambulance.Patient.DateOfBirth)).Year - 1 ) Born on @Model.Ambulance.Patient.DateOfBirth.ToString("dd/MM/yyyy")</td>
+            }
+            else
+            {
+                <td>Unknown</td>  
+            }
+        </tr>
+        <tr>
+            <td class="bg-primary text-white">First Name</td>
+        </tr>
+        <tr>
+            <td>@Model.Ambulance.Patient.FirstName</td>
+        </tr>
+        <tr>
+            <td class="bg-primary text-white">Last Name</td>
+        </tr>
+        <tr>
+            <td>@Model.Ambulance.Patient.LastName</td>
+        </tr>
+        <tr>
+            <td class="bg-primary text-white">Social Security Number</td>
+        </tr>
+        <tr>
+            <td>@Model.Ambulance.Patient.SocialSecurityNumber</td>
+        </tr>
+        <tr>
+            <td class="bg-primary text-white">Sex</td>
+        </tr>
+        <tr>
+            <td>@Model.Ambulance.Patient.Sex</td>
+        </tr>
+    }
+    else
+    {
+        <tr>
+            <td>EMPTY</td>
+        </tr>
+    }
+    </tbody>
 </table>

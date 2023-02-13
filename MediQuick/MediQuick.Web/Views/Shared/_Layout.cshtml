@@ -97,28 +97,35 @@
                 <a b-e1ocawbhh6 asp-area="" asp-controller="Hospital" asp-action="ViewHospitalAmbulances">View Ambulances</a>
             }
 
+            @if(Model != null && Model.User != null && Model.User.UsersRoles != null &&
+                (Model.User.UsersRoles.Select(x => x.Role.Name).Contains(RoleType.Admin.ToString()) || 
+                 Model.User.UsersRoles.Select(x => x.Role.Name).Contains(RoleType.AmbulanceDriver.ToString())))
+            {
+                <a b-e1ocawbhh6 asp-area="" asp-controller="Ambulance" asp-action="AssignPatient">Patient</a>
+            }
+
             @if((Model != null && Model.User == null) || Model == null )
             {
                 <div class="login-container round-corners ">
-                    <a class="round-corners "  b-e1ocawbhh6 asp-area="" asp-controller="User" asp-action="Login">Log in</a>
+                    <a class="round-corners"  b-e1ocawbhh6 asp-area="" asp-controller="User" asp-action="Login">Log in</a>
                 </div>
             }
 
             @if(Model != null && Model.User != null)
             {
                 <div class="login-container round-corners ">
-                    <a class="round-corners "  b-e1ocawbhh6 asp-area="" asp-controller="User" asp-action="Logout">Log out</a>
+                    <a class="round-corners"  b-e1ocawbhh6 asp-area="" asp-controller="User" asp-action="Logout">Log out</a>
                 </div>
             }
         </div>
     </header>
-    <div class="container">
-        <main role="main" class="pb-3">
+    <div id="page-container" class="container">
+        <main id="content-wrap" role="main" class="pb-3">
             @RenderBody()
         </main>
     </div>
 
-    <footer class="border-top footer text-muted">
+    <footer id="footer" class="border-top footer text-muted">
         <div class="container">
             &copy; 2023 - MediQuick.Web - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
         </div>

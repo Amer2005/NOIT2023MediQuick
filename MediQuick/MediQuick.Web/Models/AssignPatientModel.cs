@@ -1,14 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using MediQuick.Data.Models;
 
-namespace MediQuick.Data.Models
+namespace MediQuick.Web.Models
 {
-    public class Patient
+    public class AssignPatientModel : BaseModel
     {
-        public int Id { get; set; }
+        public int AmbulanceId { get; set; }
+
+        public Ambulance Ambulance { get; set; }
 
         public string FirstName { get; set; }
 
@@ -23,7 +21,5 @@ namespace MediQuick.Data.Models
         public DateTime DateOfBirth { get; set; }
 
         public string ExtraInfo { get; set; }
-
-        public List<Cardiogram> Cardiograms { get; set; }
     }
 }

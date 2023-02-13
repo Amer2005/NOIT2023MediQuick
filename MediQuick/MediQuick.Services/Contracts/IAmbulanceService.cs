@@ -18,5 +18,7 @@ namespace MediQuick.Services.Contracts
         void UpdateAmbulanceLocation(Ambulance ambulance, decimal latitude, decimal longitude);
         List<Ambulance> GetAllAmbulancesFromHospital(int hospitalId);
         Ambulance GetAmbulanceById(int id);
+        void AssignPatientToAmbulance(int ambulanceId, string firstName, string lastName, string socialSecurityNumber, string sex, string status, DateTime dateOfBirth, string extraInfo);
+        void RemoveAmbulancePatient(int ambulanceId);
     }
 }

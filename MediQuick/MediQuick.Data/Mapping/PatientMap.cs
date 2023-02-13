@@ -16,10 +16,6 @@ namespace MediQuick.Data.Mapping
             builder.ToTable("Patient");
 
             builder.HasKey(x => x.Id);
-
-            builder.HasOne(x => x.Location)
-                .WithMany(x => x.Patients)
-                .HasForeignKey(x => x.LocationId);
         }
     }
 }

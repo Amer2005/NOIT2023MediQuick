@@ -14,8 +14,6 @@ namespace MediQuick.Data.Models
 
         public ICollection<Hospital> Hospitals { get; set; }
 
-        public ICollection<Patient> Patients { get; set; }
-
         public decimal Latitude { get; set; }
 
         public decimal Longitude { get; set; }

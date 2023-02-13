@@ -17,17 +17,23 @@ namespace MediQuick.Services
         private readonly IHospitalRepository hospitalRepository;
         private readonly IUserService userService;
         private readonly IRoleService roleService;
+        private readonly IPatientService patientService;
+        private readonly IPatientRepository patientRepository;
         private readonly IUnitOfWork unitOfWork;
 
         public AmbulanceService(IAmbulanceRepository ambulanceRepository, ILocationRepository locationRepository,
                                 IHospitalRepository hospitalRepository, IUserService userService,
-                                IRoleService roleService,IUnitOfWork unitOfWork)
+                                IRoleService roleService,IPatientService patientService,
+                                IPatientRepository patientRepository,
+                                IUnitOfWork unitOfWork)
         {
             this.ambulanceRepository = ambulanceRepository;
             this.locationRepository = locationRepository;
             this.hospitalRepository = hospitalRepository;
             this.userService = userService;
             this.roleService = roleService;
+            this.patientService = patientService;
+            this.patientRepository = patientRepository;
             this.unitOfWork = unitOfWork;
         }
 
@@ -50,6 +56,21 @@ namespace MediQuick.Services
         {
             ambulance.Location.Longitude = longitude;
             ambulance.Location.Latitude = latitude;
+
+            unitOfWork.Commit();
+        }
+
+        public void RemoveAmbulancePatient(int ambulanceId)
+        {
+            Ambulance ambulance = ambulanceRepository.GetById(ambulanceId);
+
+            int patientId = (int)ambulance.PatientId;
+
+            ambulance.PatientId = null;
+
+            unitOfWork.Commit();
+
+            patientRepository.DeletePatientById(patientId);
 
             unitOfWork.Commit();
         }
@@ -87,6 +108,25 @@ namespace MediQuick.Services
             Ambulance ambulance = this.CreateAmbulance(hospitalId);
 
             ambulance.UserId = userId;
+
+            unitOfWork.Commit();
+        }
+
+        public void AssignPatientToAmbulance(int ambulanceId, 
+            string firstName,
+            string lastName,
+            string socialSecurityNumber,
+            string sex,
+            string status,
+            DateTime dateOfBirth,
+            string extraInfo
+            )
+        {
+            Ambulance ambulance = this.GetAmbulanceById(ambulanceId);
+
+            Patient patient = patientService.CreatePatient(firstName, lastName, socialSecurityNumber, sex, status, dateOfBirth, extraInfo);
+
+            ambulance.PatientId = patient.Id;
 
             unitOfWork.Commit();
         }

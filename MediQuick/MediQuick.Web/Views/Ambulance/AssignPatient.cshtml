@@ -1,0 +1,127 @@
+﻿@using MediQuick.Data.Enums
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+    ViewData["Title"] = "Assign Patient";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    Model.Authorised = true;
+    Model.AllowedRoles = new List<string> { 
+        RoleType.Admin.ToString(),
+        RoleType.AmbulanceDriver.ToString() };
+}
+
+@model AssignPatientModel
+
+
+
+@using (Html.BeginForm("AssignPatientPost", "Ambulance", FormMethod.Post)){
+    @if(Model != null && Model.User != null && Model.User.UsersRoles != null &&
+        (Model.User.UsersRoles.Select(x => x.Role.Name).Contains(RoleType.Admin.ToString()) ||
+         (Model.User.UsersRoles.Select(x => x.Role.Name).Contains(RoleType.AmbulanceDriver.ToString()) &&
+            Model.Ambulance.PatientId == null)))
+    {
+
+    <section class="vh-100" style="background-color: #fffff;">
+      <div class="container py-5 h-100">
+        <div class="row d-flex justify-content-center align-items-center">
+          <div class="col-12 col-md-8 col-lg-6 col-xl-5">
+            <div class="card shadow-2-strong" style="border-radius: 1rem;">
+              <div class="card-body p-5 text-center">
+            
+                <h3 class="mb-5">Assign Patient</h3>
+                
+                @if(Model.User.UsersRoles.Select(x => x.Role.Name).Contains(RoleType.Admin.ToString()))
+                {
+                    <div class="form-outline mb-4">
+                      @Html.TextBoxFor(x => x.AmbulanceId, new {@class = "form-control form-control-lg"})
+                      <label class="form-label">Ambulance Id</label>
+                      <br />
+                    </div>
+                }
+
+                <div class="form-outline mb-4">
+                  @Html.TextBoxFor(x => x.FirstName, new {@class = "form-control form-control-lg"})
+                  <label class="form-label">First Name</label>
+                  <br />
+                </div>
+
+                <div class="form-outline mb-4">
+                  @Html.TextBoxFor(x => x.LastName, new {@class = "form-control form-control-lg"})
+                  <label class="form-label">Last Name</label>
+                  <br />
+                </div>
+
+                <div class="form-outline mb-4">
+                  @Html.TextBoxFor(x => x.SocialSecurityNumber, new {@class = "form-control form-control-lg"})
+                  <label class="form-label">Social Security Number</label>
+                  <br />
+                </div>
+
+                <div class="form-outline mb-4">
+                  @Html.TextBoxFor(x => x.Sex, new {@class = "form-control form-control-lg"})
+                  <label class="form-label">Sex</label>
+                  <br />
+                </div>
+
+                <div class="form-outline mb-4">
+                  @Html.TextBoxFor(x => x.Status, new {@class = "form-control form-control-lg"})
+                  <label class="form-label">Status</label>
+                  <br />
+                </div>
+
+                <div class="form-outline mb-4">
+                  <div class="form-group">
+                    <div id="datepicker-group" class="input-group date" data-date-format="dd/mm/yyyy">
+                      @Html.TextBoxFor(x => x.DateOfBirth, "{0:dd/MM/yyyy}", new { @class = "form-control" })   
+                      <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="form-outline mb-4">
+                  @Html.TextAreaFor(x => x.ExtraInfo, new {@class = "form-control form-control-lg"})
+                  <label class="form-label">Extra Info</label>
+                  <br />
+                </div>
+
+                <button class="btn btn-primary btn-lg btn-block" type="submit">Assign Patient</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    }
+    else
+    {
+        <section class="vh-100" style="background-color: #fffff;">
+      <div class="container py-5 h-100">
+        <div class="row d-flex justify-content-center align-items-center">
+          <div class="col-12 col-md-8 col-lg-6 col-xl-5">
+            <div class="card shadow-2-strong" style="border-radius: 1rem;">
+              <div class="card-body p-5 text-center">
+            
+                <h3 class="mb-5">Unassign Patient</h3>
+                
+                <button class="btn btn-primary btn-lg btn-block" type="submit">Unassign patient</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+        
+    }
+}

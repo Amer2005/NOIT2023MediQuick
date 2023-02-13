@@ -16,5 +16,20 @@ namespace MediQuick.Data.Repositories
         {
             this.dbContext = dbContext;
         }
+
+        public Patient GetById(int id)
+        {
+            return this.dbContext.Patients.FirstOrDefault(x => x.Id == id);
+        }
+
+        public void CreatePatient(Patient patient)
+        {
+            this.dbContext.Patients.Add(patient);
+        }
+
+        public void DeletePatientById(int id)
+        {
+            this.dbContext.Patients.Remove(GetById(id));
+        }
     }
 }
