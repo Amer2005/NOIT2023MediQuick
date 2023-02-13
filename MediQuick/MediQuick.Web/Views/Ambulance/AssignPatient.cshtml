@@ -59,13 +59,22 @@
                 </div>
 
                 <div class="form-outline mb-4">
-                  @Html.TextBoxFor(x => x.Sex, new {@class = "form-control form-control-lg"})
+                  <select class="form-control form-control-lg" name="Sex">
+                    <option>Male</option> 
+                    <option>Female</option> 
+                    <option>Other</option> 
+                   </select>
                   <label class="form-label">Sex</label>
                   <br />
                 </div>
 
                 <div class="form-outline mb-4">
-                  @Html.TextBoxFor(x => x.Status, new {@class = "form-control form-control-lg"})
+                  <select class="form-control form-control-lg" name="Status">
+                    <option>Critical</option> 
+                    <option>Emergency</option> 
+                    <option>Not Critical</option> 
+                    <option>Not Emergency</option> 
+                   </select>
                   <label class="form-label">Status</label>
                   <br />
                 </div>

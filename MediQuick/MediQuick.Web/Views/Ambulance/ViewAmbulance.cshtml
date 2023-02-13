@@ -71,17 +71,23 @@
             <td>@Model.Ambulance.Patient.ExtraInfo</td>
         </tr>
         <tr>
-            <td class="bg-primary text-white">Age</td>
+            <td class="bg-primary text-white">Date of Birth</td>
         </tr>
         <tr>
             @if(Model.Ambulance.Patient.DateOfBirth != null)
             {
-                <td>@((new DateTime(1, 1, 1) + (DateTime.Now - Model.Ambulance.Patient.DateOfBirth)).Year - 1 ) Born on @Model.Ambulance.Patient.DateOfBirth.ToString("dd/MM/yyyy")</td>
+                <td>@Model.Ambulance.Patient.DateOfBirth.ToString("dd/MM/yyyy")</td>
             }
             else
             {
                 <td>Unknown</td>  
             }
+        </tr>
+        <tr>
+            <td class="bg-primary text-white">Sex</td>
+        </tr>
+        <tr>
+            <td>@Model.Ambulance.Patient.Sex</td>
         </tr>
         <tr>
             <td class="bg-primary text-white">First Name</td>
@@ -100,12 +106,6 @@
         </tr>
         <tr>
             <td>@Model.Ambulance.Patient.SocialSecurityNumber</td>
-        </tr>
-        <tr>
-            <td class="bg-primary text-white">Sex</td>
-        </tr>
-        <tr>
-            <td>@Model.Ambulance.Patient.Sex</td>
         </tr>
     }
     else
