@@ -40,9 +40,3 @@ steps:
     ArtifactName: 'upload'
     publishLocation: 'Container'
 
-- task: AzureRmWebAppDeployment@4
-  inputs:
-    ConnectionType: 'PublishProfile'
-    PublishProfilePath: '**/*.pubxml'
-    PublishProfilePassword: '$(Password)'
-    packageForLinux: '$(System.DefaultWorkingDirectory)/**/*.zip'
