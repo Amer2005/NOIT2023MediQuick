@@ -106,14 +106,15 @@
 
             @if((Model != null && Model.User == null) || Model == null )
             {
-                <div class="login-container round-corners ">
+                <div class="login-container round-corners">
                     <a class="round-corners"  b-e1ocawbhh6 asp-area="" asp-controller="User" asp-action="Login">Log in</a>
                 </div>
             }
 
             @if(Model != null && Model.User != null)
             {
-                <div class="login-container round-corners ">
+                <div class="login-container round-corners">
+                    <a class="round-corners"  b-e1ocawbhh6 >Logged in as @Model.User.UsersRoles.FirstOrDefault().Role.Name</a>
                     <a class="round-corners"  b-e1ocawbhh6 asp-area="" asp-controller="User" asp-action="Logout">Log out</a>
                 </div>
             }
