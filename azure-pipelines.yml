@@ -34,9 +34,18 @@ steps:
     platform: '$(buildPlatform)'
     configuration: '$(buildConfiguration)'
 
+- task: DotNetCoreCLI@2
+  displayName: 'Running tests'
+  inputs:
+    command: test
+    projects: '**/*.Tests.csproj'
+    publishTestResults: true
+
 - task: PublishBuildArtifacts@1
   inputs:
     PathtoPublish: '$(Build.ArtifactStagingDirectory)'
     ArtifactName: 'upload'
     publishLocation: 'Container'
+
+
 
