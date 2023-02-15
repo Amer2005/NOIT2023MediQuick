@@ -36,6 +36,7 @@ namespace MediQuick.Web
             builder.Services.AddScoped<ILocationService, LocationService>();
             builder.Services.AddScoped<IAmbulanceService, AmbulanceService>();
             builder.Services.AddScoped<IPatientService, PatientService>();
+            builder.Services.AddScoped<IHashService, HashService>();
 
             builder.Services.AddSwaggerGen();
 

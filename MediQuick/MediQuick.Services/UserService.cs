@@ -10,12 +10,15 @@ namespace MediQuick.Services
     {
         private IUserRepository userRepository;
         private readonly IRoleRepository roleRepository;
+        private readonly IHashService hashService;
         private readonly IUnitOfWork unitOfWork;
 
-        public UserService(IUserRepository userRepository, IRoleRepository roleRepository, IUnitOfWork unitOfWork)
+        public UserService(IUserRepository userRepository, IRoleRepository roleRepository, 
+                            IHashService hashService,IUnitOfWork unitOfWork)
         {
             this.userRepository = userRepository;
             this.roleRepository = roleRepository;
+            this.hashService = hashService;
             this.unitOfWork = unitOfWork;
         }
 
@@ -31,7 +34,7 @@ namespace MediQuick.Services
                 throw new ArgumentException("The password cannot be empty!");
             }
 
-            password = HashText(password);
+            password = hashService.HashText(password);
 
             var user = userRepository.GetByUsernameAndPassword(username, password);
 
@@ -53,7 +56,7 @@ namespace MediQuick.Services
                 return null;
             }
 
-            password = HashText(password);
+            password = hashService.HashText(password);
 
             var user = userRepository.GetByUsernameAndPassword(username, password);
 
@@ -75,7 +78,7 @@ namespace MediQuick.Services
             User user = new User();
 
             user.Name = username;
-            user.Password = HashText(password);
+            user.Password = hashService.HashText(password);
             user.HospitalId = hospitalId;
 
             userRepository.AddUser(user);
@@ -103,15 +106,6 @@ namespace MediQuick.Services
             unitOfWork.Commit();
 
             return user;
-        }
-
-        private string HashText(string text)
-        {
-            HashAlgorithm hasher = new SHA1CryptoServiceProvider();
-            byte[] textWithSaltBytes = Encoding.UTF8.GetBytes(string.Concat(text));
-            byte[] hashedBytes = hasher.ComputeHash(textWithSaltBytes);
-            hasher.Clear();
-            return Convert.ToBase64String(hashedBytes);
         }
     }
 }

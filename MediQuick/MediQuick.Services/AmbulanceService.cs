@@ -15,23 +15,18 @@ namespace MediQuick.Services
         private readonly IAmbulanceRepository ambulanceRepository;
         private readonly ILocationRepository locationRepository;
         private readonly IHospitalRepository hospitalRepository;
-        private readonly IUserService userService;
-        private readonly IRoleService roleService;
         private readonly IPatientService patientService;
         private readonly IPatientRepository patientRepository;
         private readonly IUnitOfWork unitOfWork;
 
         public AmbulanceService(IAmbulanceRepository ambulanceRepository, ILocationRepository locationRepository,
-                                IHospitalRepository hospitalRepository, IUserService userService,
-                                IRoleService roleService,IPatientService patientService,
+                                IHospitalRepository hospitalRepository,IPatientService patientService,
                                 IPatientRepository patientRepository,
                                 IUnitOfWork unitOfWork)
         {
             this.ambulanceRepository = ambulanceRepository;
             this.locationRepository = locationRepository;
             this.hospitalRepository = hospitalRepository;
-            this.userService = userService;
-            this.roleService = roleService;
             this.patientService = patientService;
             this.patientRepository = patientRepository;
             this.unitOfWork = unitOfWork;

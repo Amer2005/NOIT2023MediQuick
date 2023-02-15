@@ -7,7 +7,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MediQuick.Data", "MediQuick
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MediQuick.Services", "MediQuick.Services\MediQuick.Services.csproj", "{1DA3FD04-C17E-48CA-ACD7-50130EDB7F5C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MediQuick.Web", "MediQuick.Web\MediQuick.Web.csproj", "{191AF30B-B8B6-4382-BCE6-46EBAD15767C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MediQuick.Web", "MediQuick.Web\MediQuick.Web.csproj", "{191AF30B-B8B6-4382-BCE6-46EBAD15767C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MediQuick.Services.Tests", "MediQuick.Services.Tests\MediQuick.Services.Tests.csproj", "{E31CC677-49CB-4D27-87AB-91EF7E56668B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -27,6 +29,10 @@ Global
 		{191AF30B-B8B6-4382-BCE6-46EBAD15767C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{191AF30B-B8B6-4382-BCE6-46EBAD15767C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{191AF30B-B8B6-4382-BCE6-46EBAD15767C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E31CC677-49CB-4D27-87AB-91EF7E56668B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E31CC677-49CB-4D27-87AB-91EF7E56668B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E31CC677-49CB-4D27-87AB-91EF7E56668B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E31CC677-49CB-4D27-87AB-91EF7E56668B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
