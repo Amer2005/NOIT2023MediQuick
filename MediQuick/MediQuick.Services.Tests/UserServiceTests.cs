@@ -257,8 +257,8 @@ namespace MediQuick.Services.Tests
             hashServiceMock.Setup(x => x.HashText(password)).Returns(hashedPassword);
             userRepositoryMock.Setup(x => x.DoesUserExistByName(username)).Returns(false);
             userRepositoryMock.Setup(x => x.AddUser(It.IsAny<User>()));
-            roleRepositoryMock.Setup(x => x.GetRoleById(3)).Returns(new Role());
-            roleRepositoryMock.Setup(x => x.GetRoleById(2)).Returns(new Role());
+            roleRepositoryMock.Setup(x => x.GetRoleById(3)).Returns(new Role() { Id = 3 });
+            roleRepositoryMock.Setup(x => x.GetRoleById(2)).Returns(new Role() { Id = 2 });
 
             UserService userService = new UserService(userRepositoryMock.Object, roleRepositoryMock.Object, hashServiceMock.Object, unitOfWorkMock.Object);
 
@@ -294,12 +294,14 @@ namespace MediQuick.Services.Tests
 
             UserService userService = new UserService(userRepositoryMock.Object, roleRepositoryMock.Object, hashServiceMock.Object, unitOfWorkMock.Object);
 
-            //Act and Assert
+            //Act 
             User user = userService.CreateUser(username, password, hospitalId, rolesIds);
 
+            //Assert
             userRepositoryMock.Verify(x => x.DoesUserExistByName(username), Times.Once());
             userRepositoryMock.Verify(x => x.AddUser(It.IsAny<User>()), Times.Once());
             unitOfWorkMock.Verify(x => x.Commit(), Times.Exactly(2));
+            userRepositoryMock.Verify(x => x.AddRoleToUser(It.IsAny<int>(), It.IsAny<int>()), Times.Exactly(2));
 
             Assert.That(username, Is.EqualTo(user.Name));
             Assert.That(hashedPassword, Is.EqualTo(user.Password));
