@@ -85,11 +85,6 @@ namespace MediQuick.Services
 
             unitOfWork.Commit();
 
-            if (user == null)
-            {
-                throw new NullReferenceException("User is null!");
-            }
-
             for (int i = 0; i < roles.Count; i++)
             {
                 if (roleRepository.GetRoleById(roles[i]) == null)
