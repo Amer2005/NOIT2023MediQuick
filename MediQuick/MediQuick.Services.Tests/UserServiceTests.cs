@@ -86,6 +86,8 @@ namespace MediQuick.Services.Tests
 
             UserService userService = new UserService(userRepositoryMock.Object, roleRepositoryMock.Object, hashServiceMock.Object, unitOfWorkMock.Object);
 
+            throw new Exception();
+
             //Act
 
             userService.LoginUser(username, password);
