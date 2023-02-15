@@ -21,14 +21,6 @@ steps:
   inputs:
     restoreSolution: '$(solution)'
 
-- task: DotNetCoreCLI@2
-  displayName: 'Running tests'
-  inputs:
-    command: test
-    projects: '**/*.Tests.csproj'
-    arguments: '--configuration $(buildConfiguration) --collect "Code coverage" --no-restore -s "$(Build.SourcesDirectory)\CodeCoverage.runsettings"'
-    publishTestResults: true
-
 - task: FileTransform@1
   inputs:
     folderPath: '$(System.DefaultWorkingDirectory)'
@@ -41,6 +33,14 @@ steps:
     msbuildArgs: '/p:DeployOnBuild=true /p:WebPublishMethod=Package /p:PackageAsSingleFile=true /p:SkipInvalidConfigurations=true /p:PackageLocation="$(build.artifactStagingDirectory)"'
     platform: '$(buildPlatform)'
     configuration: '$(buildConfiguration)'
+
+- task: DotNetCoreCLI@2
+  displayName: 'Running tests'
+  inputs:
+    command: test
+    projects: '**/*.Tests.csproj'
+    arguments: '--configuration $(buildConfiguration) --collect "Code coverage" --no-restore -s "$(Build.SourcesDirectory)\CodeCoverage.runsettings"'
+    publishTestResults: true
 
 - task: PublishBuildArtifacts@1
   inputs:
