@@ -8,14 +8,39 @@ function showMapPoint(latitude, longtitude, hospitalLatitude, hospitaLongtitude)
             "esri/Map",
             "esri/views/MapView",
             "esri/Graphic",
-            "esri/layers/GraphicsLayer"
+            "esri/layers/GraphicsLayer",
+            "esri/rest/route",
+            "esri/rest/support/RouteParameters",
+            "esri/rest/support/FeatureSet"
 
-        ], function (esriConfig, Map, MapView, Graphic, GraphicsLayer) {
+        ], function (esriConfig, Map, MapView, Graphic, GraphicsLayer, route, RouteParameters, FeatureSet) {
+            const routeUrl =
+                "https://route-api.arcgis.com/arcgis/rest/services/World/Route/NAServer/Route_World";
+
+            const routeLayer = new GraphicsLayer();
+
+            // Setup the route parameters
+            const routeParams = new RouteParameters({
+                // An authorization string used to access the routing service
+                apiKey: "AAPK7e9a4bdcce884c9ea77f3cb1801dfd7bk0_qidfJ68YqKbDYey3Lj5mbppuCTPUdCAxVRyPXhLR3sOThVxgdtrtezgSJKBkK",
+                stops: new FeatureSet(),
+                outSpatialReference: {
+                    // autocasts as new SpatialReference()
+                    wkid: 3857
+                }
+            });
+
+            const routeSymbol = {
+                type: "simple-line", // autocasts as SimpleLineSymbol()
+                color: [255, 0, 0, 0.7],
+                width: 5
+            };
 
             esriConfig.apiKey = "AAPK7e9a4bdcce884c9ea77f3cb1801dfd7bk0_qidfJ68YqKbDYey3Lj5mbppuCTPUdCAxVRyPXhLR3sOThVxgdtrtezgSJKBkK";
 
             const map = new Map({
-                basemap: "arcgis-navigation"
+                basemap: "arcgis-navigation",
+                layers: [routeLayer]
             });
 
             const view = new MapView({
@@ -24,9 +49,6 @@ function showMapPoint(latitude, longtitude, hospitalLatitude, hospitaLongtitude)
                 center: [longtitude, latitude],
                 zoom: 12
             });
-
-            const graphicsLayer = new GraphicsLayer();
-            map.add(graphicsLayer);
 
             const point = { //Create a point
                 type: "point",
@@ -69,12 +91,23 @@ function showMapPoint(latitude, longtitude, hospitalLatitude, hospitaLongtitude)
                 symbol: simpleMarkerSymbol
             });
 
-            
+           
 
-            graphicsLayer.add(pointGraphic);
-            graphicsLayer.add(hospitalPointGraphic);
+            routeLayer.add(hospitalPointGraphic);
+            routeLayer.add(pointGraphic);
+
+            routeParams.stops.features.push(hospitalPointGraphic);
+            routeParams.stops.features.push(pointGraphic);
+
+            route.solve(routeUrl, routeParams).then(showRoute);
 
             const serviceUrl = "http://geocode-api.arcgis.com/arcgis/rest/services/World/GeocodeServer";
+
+            function showRoute(data) {
+                const routeResult = data.routeResults[0].route;
+                routeResult.symbol = routeSymbol;
+                routeLayer.add(routeResult);
+            }
         });
 
 
