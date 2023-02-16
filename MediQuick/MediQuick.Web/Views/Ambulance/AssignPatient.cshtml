@@ -16,10 +16,9 @@
 
 
 @using (Html.BeginForm("AssignPatientPost", "Ambulance", FormMethod.Post)){
-    @if(Model != null && Model.User != null && Model.User.UsersRoles != null &&
+   @if(Model != null && Model.User != null && Model.User.UsersRoles != null &&
         (Model.User.UsersRoles.Select(x => x.Role.Name).Contains(RoleType.Admin.ToString()) ||
-         (Model.User.UsersRoles.Select(x => x.Role.Name).Contains(RoleType.AmbulanceDriver.ToString()) &&
-            Model.Ambulance.PatientId == null)))
+         (Model.User.UsersRoles.Select(x => x.Role.Name).Contains(RoleType.AmbulanceDriver.ToString()))))
     {
 
     <section class="vh-100" style="background-color: #fffff;">
@@ -93,44 +92,36 @@
                   <label class="form-label">Extra Info</label>
                   <br />
                 </div>
-
-                <button class="btn btn-primary btn-lg btn-block" type="submit">Assign Patient</button>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <br />
-    <br />
-    <br />
-    <br />
-    <br />
-    <br />
-    <br />
-    <br />
-    <br />
-    }
-    else
-    {
-        <section class="vh-100" style="background-color: #fffff;">
-      <div class="container py-5 h-100">
-        <div class="row d-flex justify-content-center align-items-center">
-          <div class="col-12 col-md-8 col-lg-6 col-xl-5">
-            <div class="card shadow-2-strong" style="border-radius: 1rem;">
-              <div class="card-body p-5 text-center">
-            
-                <h3 class="mb-5">Unassign Patient</h3>
                 
-                <button class="btn btn-primary btn-lg btn-block" type="submit">Unassign patient</button>
-              </div>
+                @if(Model.Ambulance.PatientId == null)
+                {
+                    <button class="btn btn-primary btn-lg btn-block" value="AssignPatientPost" type="submit" name="buttonValue">Assign Patient</button>
+                }
+                else
+                {
+                    <button class="btn btn-primary btn-lg btn-block" value="UpdatePatientPost" type="submit" name="buttonValue">Update Patient Info</button>
+
+                    <br />
+                    <br />
+
+                    <button class="btn btn-primary btn-lg btn-block" value="AssignPatientPost" type="submit" name="buttonValue">Unassign Patient</button>              
+                }
+                </div>
             </div>
           </div>
         </div>
       </div>
     </section>
-
-        
     }
+   
+
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
 }

@@ -107,6 +107,29 @@ namespace MediQuick.Services
             unitOfWork.Commit();
         }
 
+        public void UpdatePatientOfAmbulance(int ambulanceId,
+            string firstName,
+            string lastName,
+            string socialSecurityNumber,
+            string sex,
+            string status,
+            DateTime dateOfBirth,
+            string extraInfo
+            )
+        {
+            Ambulance ambulance = this.GetAmbulanceById(ambulanceId);
+
+            ambulance.Patient.FirstName = firstName;
+            ambulance.Patient.LastName = lastName;
+            ambulance.Patient.SocialSecurityNumber = socialSecurityNumber;
+            ambulance.Patient.Sex = sex;
+            ambulance.Patient.Status = status;
+            ambulance.Patient.DateOfBirth = dateOfBirth;
+            ambulance.Patient.ExtraInfo = extraInfo;
+
+            unitOfWork.Commit();
+        }
+
         public void AssignPatientToAmbulance(int ambulanceId, 
             string firstName,
             string lastName,

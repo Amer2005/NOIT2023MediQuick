@@ -23,6 +23,7 @@ namespace MediQuick.Data.Repositories
             return this.dbContext.Ambulances
                 .Include(x => x.User)
                 .Include(x => x.Location)
+                .Include(x => x.Patient)
                 .FirstOrDefault(x => x.UserId == id);
         }
 

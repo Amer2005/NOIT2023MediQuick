@@ -20,5 +20,6 @@ namespace MediQuick.Services.Contracts
         Ambulance GetAmbulanceById(int id);
         void AssignPatientToAmbulance(int ambulanceId, string firstName, string lastName, string socialSecurityNumber, string sex, string status, DateTime dateOfBirth, string extraInfo);
         void RemoveAmbulancePatient(int ambulanceId);
+        void UpdatePatientOfAmbulance(int ambulanceId, string firstName, string lastName, string socialSecurityNumber, string sex, string status, DateTime dateOfBirth, string extraInfo);
     }
 }
