@@ -22,7 +22,7 @@
     <tr>
       <th scope="col">#</th>
       <th scope="col">Driver</th>
-      <th scope="col">Has Patient</th>
+      <th scope="col">Status</th>
       <th scope="col">More info</th>
     </tr>
   </thead>
@@ -32,7 +32,7 @@
         <tr>
             <th scope="row">@(i + 1)</th>
             <td>@Model.AmbulanceStatuses[i].DriverName</td>
-            <td>@Model.AmbulanceStatuses[i].HasPatient</td>
+            <td>@(Model.AmbulanceStatuses[i].HasPatient == false? "Empty" : "Full")</td>
             <td><a href="/Ambulance/ViewAmbulance?AmbulanceId=@Model.AmbulanceStatuses[i].AmbulanceId">View</a></td>
         </tr> 
     }
