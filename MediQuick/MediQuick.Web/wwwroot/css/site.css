@@ -46,3 +46,13 @@ body {
 .bg-active {
     background-color: #2196F3;
 }
+
+#mediquick-logo {
+    padding-top: 5px;
+    width: 70px;
+}
+
+#mediquick-background-logo {
+    padding-top: 5px;
+    width: 70%;
+}
