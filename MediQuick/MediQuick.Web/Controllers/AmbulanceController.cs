@@ -157,5 +157,37 @@ namespace MediQuick.Web.Controllers
 
             return View(model);
         }
+
+        [HttpGet]
+        public IActionResult AmbulanceInfoPartial(int? ambulanceId)
+        {
+            ViewAmbulanceModel model = new ViewAmbulanceModel();
+
+            SetUpBaseModel(model);
+
+            model.AmbulanceId = ambulanceId;
+
+            if (model.AmbulanceId == null)
+            {
+                return RedirectToAction("Index", "Home", new BaseModel());
+            }
+
+            model.Ambulance = ambulanceService.GetAmbulanceById((int)model.AmbulanceId);
+
+            if (model.Ambulance == null)
+            {
+                return RedirectToAction("Index", "Home", new BaseModel());
+            }
+
+            if (!model.User.UsersRoles.Select(x => x.Role.Name).Contains(RoleType.Admin.ToString()))
+            {
+                if (model.User.HospitalId != model.Ambulance.DestinationHospitalId)
+                {
+                    return RedirectToAction("Index", "Home", new BaseModel());
+                }
+            }
+
+            return PartialView("_AmbulanceInfoPartial", model);
+        }
     }
 }

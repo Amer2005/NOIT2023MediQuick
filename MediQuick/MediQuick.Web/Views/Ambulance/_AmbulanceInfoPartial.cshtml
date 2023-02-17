@@ -1,0 +1,105 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@using MediQuick.Data.Enums
+@{
+}
+
+@model ViewAmbulanceModel
+
+<link rel="stylesheet" href="https://js.arcgis.com/4.25/esri/themes/light/main.css">
+<script src="https://js.arcgis.com/4.25/"></script>
+<script src="~/js/view-ambulance.js"></script>
+
+<script>
+    showMapPoint(@Model.Ambulance.Location.Latitude, @Model.Ambulance.Location.Longitude
+                ,@Model.Ambulance.DestinationHospital.Location.Latitude, @Model.Ambulance.DestinationHospital.Location.Longitude);
+</script>
+
+<br />
+
+<table class="table bigger-text">
+    <tbody>
+    <tr>
+        <td class="bg-primary text-white">Driver</td>
+    </tr>
+    <tr>    
+        <td>@Model.Ambulance.User.Name</td>
+    </tr>
+    </tr>
+        <td class="bg-primary text-white">Location</td>
+    <tr>
+        <td class="setHeightToNinety biggerTds">
+            Latitude: @Model.Ambulance.Location.Latitude Longitude: @Model.Ambulance.Location.Longitude
+            <br />
+            <div id="viewDiv"></div>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <div id="viewDivCustom"></div>
+        </td>
+    </tr>
+        <td class="bg-primary text-white">Patient</td>
+    </tr>
+    
+    @if(Model.Ambulance.Patient != null)
+    {
+        <tr>
+            <td class="bg-primary text-white">Status</td>
+        </tr>
+        <tr>
+            <td>@Model.Ambulance.Patient.Status</td>
+        </tr>
+        <tr>
+            <td class="bg-primary text-white">Info</td>
+        </tr>
+        <tr>
+            <td>@Model.Ambulance.Patient.ExtraInfo</td>
+        </tr>
+        <tr>
+            <td class="bg-primary text-white">Date of Birth</td>
+        </tr>
+        <tr>
+            @if(Model.Ambulance.Patient.DateOfBirth != null)
+            {
+                <td>@Model.Ambulance.Patient.DateOfBirth.ToString("dd/MM/yyyy")</td>
+            }
+            else
+            {
+                <td>Unknown</td>  
+            }
+        </tr>
+        <tr>
+            <td class="bg-primary text-white">Sex</td>
+        </tr>
+        <tr>
+            <td>@Model.Ambulance.Patient.Sex</td>
+        </tr>
+        <tr>
+            <td class="bg-primary text-white">First Name</td>
+        </tr>
+        <tr>
+            <td>@Model.Ambulance.Patient.FirstName</td>
+        </tr>
+        <tr>
+            <td class="bg-primary text-white">Last Name</td>
+        </tr>
+        <tr>
+            <td>@Model.Ambulance.Patient.LastName</td>
+        </tr>
+        <tr>
+            <td class="bg-primary text-white">Social Security Number</td>
+        </tr>
+        <tr>
+            <td>@Model.Ambulance.Patient.SocialSecurityNumber</td>
+        </tr>
+    }
+    else
+    {
+        <tr>
+            <td>EMPTY</td>
+        </tr>
+    }
+    </tbody>
+</table>
